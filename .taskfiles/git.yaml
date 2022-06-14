@@ -1,5 +1,7 @@
 version: '3'
 
+# GIT_MODULE_VERSION: 0.0.1
+
 tasks:
   configure:hooks:
     desc: "Configure git hooks"

@@ -14,6 +14,7 @@ tasks:
   - task: commit:apps
   - task: commit:lib-cluster-manager
   - task: commit:lib-system-manager
+    dir: lib-cluster-manager
   - task: git:commit:fast
 
   pull:
