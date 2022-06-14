@@ -1,0 +1,47 @@
+version: '3'
+
+includes:
+  git: ./.taskfiles/git.yaml
+
+tasks:
+  default:
+    cmds:
+    - task -l
+    silent: true
+
+  commit:all:
+  - task: fix
+  - task: commit:apps
+  - task: commit:lib-cluster-manager
+  - task: commit:lib-system-manager
+  - task: git:commit:fast
+
+  pull:
+  - git pull
+  - cd lib-system-manager && git pull
+  - cd lib-cluster-manager && git pull
+
+  fix:
+  - find .git/objects/ -size 0 -delete
+  - find .git/modules/*/objects/ -size 0 -delete
+  #- find .git/modules/lib-cluster-manager/objects/ -size 0 -delete
+  - cd lib-cluster-manager; git fetch; cd ..
+  - cd lib-system-manager; git fetch; cd ..
+  - cd apps; git fetch; cd ..
+  - git fetch
+
+  commit:apps:
+    dir: apps
+    cmds: 
+    - task: git:commit:fast
+
+  commit:lib-cluster-manager:
+    dir: lib-cluster-manager
+    cmds: 
+    - task: git:commit:fast
+
+  commit:lib-system-manager:
+    dir: lib-system-manager
+    cmds: 
+    - task: git:commit:fast
+
