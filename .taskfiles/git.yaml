@@ -1,6 +1,12 @@
 version: '3'
 
-# GIT_MODULE_VERSION: 0.0.1
+# GIT_MODULE_VERSION: 0.0.2
+
+vars:
+  DATE:
+    sh: date -u +"%Y-%m-%dT%H:%M:%SZ"
+
+      
 
 tasks:
   configure:hooks:
@@ -21,16 +27,47 @@ tasks:
   commit:fast:
     desc: Fast commit, I am lazy
     cmds:
-    - task: add
     - |
-      DATE=$(date -u +"%Y-%m-%dT%H:%M:%SZ")
-      git commit -m "feat(fast): ${DATE}" || echo
-      pwd
-    - task: push
+      [[ $(git submodule | wc -l) != "0" ]] && SUBMODULES=$(git submodule | tr "+" " " | cut -f 3 -d " ") || exit 0
+      for SUBMODULE in ${SUBMODULES}
+      do
+        echo $SUBMODULES
+        echo ${SUBMODULE}
+        cd ${SUBMODULE}
+        git add . || true
+        git commit -m "feat(fast): {{ .DATE }}" || true
+        cd ..
+      done
+    - cmd: git add . 
+      ignore_error: true
+    - cmd: git commit -m "feat(fast) {{ .DATE }}"
+      ignore_error: true
+    - cmd: git push origin 
+      ignore_error: true
 
-  add: git add . || echo 
-  push: git push origin main || echo
 
   fix: 
   - find .git/objects/ -size 0 -delete 
+  - find .git/modules/*/objects/ -size 0 -delete || echo "No submodules"
+  - |
+    [[ $(git submodule | wc -l) != "0" ]] && SUBMODULES=$(git submodule |  tr "+" " " | cut -f 3 -d " ") || exit 0
+    for SUBMODULE in ${SUBMODULES}
+    do
+      echo ${SUBMODULE}
+      cd ${SUBMODULE}
+      git fetch
+      cd ..
+    done
   - git fetch
+
+  pull:
+  - git pull
+  - |
+    [[ $(git submodule | wc -l) != "0" ]] && SUBMODULES=$(git submodule |  tr "+" " " | cut -f 3 -d " ") || exit 0
+    for SUBMODULE in ${SUBMODULES}
+    do
+      echo ${SUBMODULE}
+      cd ${SUBMODULE}
+      git pull
+      cd ..
+    done

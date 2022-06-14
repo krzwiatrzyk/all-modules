@@ -9,34 +9,4 @@ tasks:
     - task -l
     silent: true
 
-  commit:all:
-  - task: fix
-  - task: git:commit:fast
-    dir: lib-cluster-manager
-  - task: git:commit:fast
-    dir: apps
-  - task: git:commit:fast
-    dir: lib-system-manager
-  - task: git:commit:fast
-    dir: k8s-clusters
-  - task: git:commit:fast
-
-    # to simplify and move to .taskfile/git
-  pull:
-  - git pull
-  - cd lib-system-manager && git pull
-  - cd lib-cluster-manager && git pull
-  - cd apps && git pull
-  - cd k8s-clusters && git pull
-
-  # to simplify and move to .taskfile/git
-  fix:
-  - find .git/objects/ -size 0 -delete
-  - find .git/modules/*/objects/ -size 0 -delete
-  #- find .git/modules/lib-cluster-manager/objects/ -size 0 -delete
-  - cd lib-cluster-manager; git fetch; cd ..
-  - cd lib-system-manager; git fetch; cd ..
-  - cd apps; git fetch; cd ..
-  - git fetch
-
 
