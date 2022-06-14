@@ -10,3 +10,6 @@
 [submodule "k8s-clusters"]
 	path = k8s-clusters
 	url = https://github.com/krzwiatrzyk/k8s-clusters
+[submodule "charts"]
+	path = charts
+	url = https://github.com/krzwiatrzyk/charts
