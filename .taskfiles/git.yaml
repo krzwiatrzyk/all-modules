@@ -63,6 +63,7 @@ tasks:
 
   pull:
   - git pull
+  - git submodule update --init --recursive
   - |
     [[ $(git submodule | wc -l) != "0" ]] && SUBMODULES=$(git submodule |  tr "+" " " | cut -f 3 -d " ") || exit 0
     for SUBMODULE in ${SUBMODULES}
@@ -70,5 +71,6 @@ tasks:
       echo ${SUBMODULE}
       cd ${SUBMODULE}
       git pull
+      git submodule update --init --recursive
       cd ..
     done
