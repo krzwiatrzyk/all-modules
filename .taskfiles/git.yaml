@@ -24,7 +24,7 @@ tasks:
       git commit -m "${TYPE}(${SCOPE}): ${SUBJECT}"
     - task: push
 
-  commit:fast:
+  fast:
     desc: Fast commit, I am lazy
     cmds:
     - |
@@ -36,6 +36,7 @@ tasks:
         cd ${SUBMODULE}
         git add . || true
         git commit -m "feat(fast): {{ .DATE }}" || true
+        git push
         cd ..
       done
     - cmd: git add . 
