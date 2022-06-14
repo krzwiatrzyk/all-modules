@@ -1,0 +1,12 @@
+[submodule "apps"]
+	path = apps
+	url = https://github.com/krzwiatrzyk/apps.git
+[submodule "lib-cluster-manager"]
+	path = lib-cluster-manager
+	url = https://github.com/krzwiatrzyk/lib-cluster-manager
+[submodule "lib-system-manager"]
+	path = lib-system-manager
+	url = https://github.com/krzwiatrzyk/lib-system-manager
+[submodule "k8s-clusters"]
+	path = k8s-clusters
+	url = https://github.com/krzwiatrzyk/k8s-clusters
