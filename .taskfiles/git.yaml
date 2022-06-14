@@ -14,6 +14,7 @@ tasks:
       read -p "Enter scope (i.e. flux): " SCOPE
       read -p "Enter subject (i.e. add test case): " SUBJECT
       git commit -m "${TYPE}(${SCOPE}): ${SUBJECT}"
+      pwd
     - task: push
 
   commit:fast:
