@@ -14,7 +14,6 @@ tasks:
       read -p "Enter scope (i.e. flux): " SCOPE
       read -p "Enter subject (i.e. add test case): " SUBJECT
       git commit -m "${TYPE}(${SCOPE}): ${SUBJECT}"
-      pwd
     - task: push
 
   commit:fast:
@@ -24,6 +23,7 @@ tasks:
     - |
       DATE=$(date -u +"%Y-%m-%dT%H:%M:%SZ")
       git commit -m "feat(fast): ${DATE}" || echo
+      pwd
     - task: push
 
   add: git add . || echo 
