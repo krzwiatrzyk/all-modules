@@ -11,17 +11,25 @@ tasks:
 
   commit:all:
   - task: fix
-  - task: commit:apps
-  - task: commit:lib-cluster-manager
-  - task: commit:lib-system-manager
+  - task: git:commit:fast
     dir: lib-cluster-manager
   - task: git:commit:fast
+    dir: apps
+  - task: git:commit:fast
+    dir: lib-system-manager
+  - task: git:commit:fast
+    dir: k8s-clusters
+  - task: git:commit:fast
 
+    # to simplify and move to .taskfile/git
   pull:
   - git pull
   - cd lib-system-manager && git pull
   - cd lib-cluster-manager && git pull
+  - cd apps && git pull
+  - cd k8s-clusters && git pull
 
+  # to simplify and move to .taskfile/git
   fix:
   - find .git/objects/ -size 0 -delete
   - find .git/modules/*/objects/ -size 0 -delete
@@ -31,18 +39,4 @@ tasks:
   - cd apps; git fetch; cd ..
   - git fetch
 
-  commit:apps:
-    dir: apps
-    cmds: 
-    - task: git:commit:fast
-
-  commit:lib-cluster-manager:
-    dir: lib-cluster-manager
-    cmds: 
-    - task: git:commit:fast
-
-  commit:lib-system-manager:
-    dir: lib-system-manager
-    cmds: 
-    - task: git:commit:fast
 
