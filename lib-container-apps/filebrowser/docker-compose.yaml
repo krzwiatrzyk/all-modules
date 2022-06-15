@@ -1,0 +1,18 @@
+version: '3'
+
+# Default user and password is admin:admin
+
+services:
+  filebrowser:
+    image: filebrowser/filebrowser:v2.21.1
+    container_name: filebrowser
+    restart: unless-stopped
+    volumes:
+    - data:/srv
+    - database:/database
+    ports:
+    - 8081:80
+
+volumes:
+  data:
+  database:

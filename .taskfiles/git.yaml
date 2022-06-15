@@ -70,6 +70,7 @@ tasks:
     do
       echo ${SUBMODULE}
       cd ${SUBMODULE}
+      git checkout main
       git pull
       git submodule update --init --recursive
       cd ..
