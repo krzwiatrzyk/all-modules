@@ -1,0 +1,19 @@
+version: '3'
+
+services:
+  drone-server:
+    container_name: drone-server
+    volumes:
+      - data:/data
+    environment:
+    - DRONE_RPC_SECRET=super-duper-secret 
+    - DRONE_SERVER_HOST=drone.192.168.56.103.nip.io
+    - DRONE_SERVER_PROTO=https
+    ports:
+      - 9080:80
+      - 9443:443
+    restart: unless-stopped
+    image: drone/drone:2
+  
+volumes:
+  data:
